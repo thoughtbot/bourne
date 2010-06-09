@@ -1,7 +1,9 @@
 require 'mocha/expectation'
 
 module Mocha # :nodoc:
-  class Expectation
+  # Extends Mocha::Expectation to record the full arguments and count whenver a
+  # stubbed or mocked method is invoked.
+  class Expectation # :nodoc:
     attr_accessor :invocation_count
 
     def invoke_with_args(args, &block)

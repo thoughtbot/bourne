@@ -2,7 +2,9 @@ require 'mocha/mock'
 require 'bourne/expectation'
 
 module Mocha # :nodoc:
-  class Mock
+  # Overwrites #method_missing on Mocha::Mock so pass arguments to
+  # Mocha::Expectation#invoke so that an Invocation can be created.
+  class Mock # :nodoc:
     def method_missing(symbol, *arguments, &block)
       if @responder and not @responder.respond_to?(symbol)
         raise NoMethodError, "undefined method `#{symbol}' for #{self.mocha_inspect} which responds like #{@responder.mocha_inspect}"

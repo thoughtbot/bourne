@@ -1,4 +1,5 @@
 require 'rake/rdoctask'
+require 'rake/gempackagetask'
 require 'rake/testtask'
 
 desc "Run all tests"
@@ -44,3 +45,17 @@ def benchmark_test_case(klass, iterations)
   time = Benchmark.realtime { iterations.times { Test::Unit::UI::Console::TestRunner.run(klass, silent_option) } }
 end
 
+eval("$specification = #{IO.read('bourne.gemspec')}")
+Rake::GemPackageTask.new($specification) do |package|
+  package.need_zip = true
+  package.need_tar = true
+end
+
+desc 'Generate documentation.'
+Rake::RDocTask.new(:rdoc) do |rdoc|
+  rdoc.rdoc_dir = 'rdoc'
+  rdoc.title    = 'Bourne'
+  rdoc.options << '--line-numbers' << "--main" << "README"
+  rdoc.rdoc_files.include('README')
+  rdoc.rdoc_files.include('lib/**/*.rb')
+end
