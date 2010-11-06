@@ -142,3 +142,19 @@ class PureSpyTest < Test::Unit::TestCase
     stub
   end
 end
+
+class StubEverythingSpyTest < Test::Unit::TestCase
+  include AcceptanceTest
+  def setup
+    setup_acceptance_test
+  end
+  
+  def teardown
+    teardown_acceptance_test
+  end  
+  def test_should_match_invocations_with_no_explicit_stubbing
+    instance = stub_everything
+    instance.surprise!
+    assert_received(instance, :surprise!)
+  end
+end

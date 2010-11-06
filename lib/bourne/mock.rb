@@ -16,6 +16,14 @@ module Mocha # :nodoc:
           message = UnexpectedInvocation.new(self, symbol, *arguments).to_s
           message << Mockery.instance.mocha_inspect
           raise ExpectationError.new(message, caller)
+        else   
+          target = if self.respond_to? :mocha
+            self.mocha
+          else
+            mocha
+          end
+          Mockery.instance.invocation(target, symbol, arguments)
+          nil
         end
       end
     end
