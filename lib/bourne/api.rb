@@ -16,6 +16,9 @@ module Mocha # :nodoc:
       assert matcher.matches?(mock), matcher.failure_message
     end
 
+    class InvalidHaveReceived < StandardError
+    end
+
     class HaveReceived #:nodoc:
       def initialize(expected_method_name)
         @expected_method_name = expected_method_name
@@ -41,7 +44,12 @@ module Mocha # :nodoc:
         @expectation.invocation_count = invocation_count
         @expectation.verified?
       end
-      
+
+      def does_not_match?(mock)
+        raise InvalidHaveReceived.new("should_not have_received(:#{@expected_method_name}) is invalid, please use" +
+                                        " should have_received(:#{@expected_method_name}).never")
+      end
+
       def failure_message
         @expectation.mocha_inspect
       end

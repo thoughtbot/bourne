@@ -85,6 +85,16 @@ module SpyTestMethods
     assert_matcher_accepts have_received(:to_s).twice, instance
   end
 
+  def test_should_not_allow_should_not
+    begin
+      have_received(:to_s).does_not_match?(new_instance)
+    rescue Mocha::API::InvalidHaveReceived => exception
+      assert_match "should_not have_received(:to_s) is invalid, please use should have_received(:to_s).never", exception.message, "Test failed, but with the wrong message"
+      return
+    end
+    flunk("Expected to fail")
+  end
+
   def test_should_reject_not_enough_calls
     instance = new_instance
     instance.stubs(:to_s)
