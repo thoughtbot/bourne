@@ -20,12 +20,18 @@ Using a test spy is like using a mocked expectation except that there are two st
 Examples
 --------
 
-RSpec
+RSpec:
 
     mock.should have_received(:to_s)
     Radio.should have_received(:new).with(1041)
     radio.should have_received(:volume).with(11).twice
     radio.should have_received(:off).never
+
+You also want to configure RSpec to use mocha for mocking:
+
+    RSpec.configure do |config|
+      config.mock_with :mocha
+    end
 
 Test::Unit:
 
