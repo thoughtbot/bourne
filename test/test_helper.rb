@@ -15,5 +15,5 @@ end
 
 require 'rubygems'
 require 'test/unit'
-gem 'mocha', '0.9.8'
+gem 'mocha', '0.9.12'
 

@@ -55,7 +55,7 @@ desc 'Generate documentation.'
 Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title    = 'Bourne'
-  rdoc.options << '--line-numbers' << "--main" << "README"
-  rdoc.rdoc_files.include('README')
+  rdoc.options << '--line-numbers' << "--main" << "README.md"
+  rdoc.rdoc_files.include('README.md')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
