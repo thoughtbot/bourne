@@ -1,3 +1,4 @@
+require 'bundler/setup'
 require 'bundler/gem_tasks'
 require 'rake/testtask'
 
@@ -25,7 +26,8 @@ namespace 'test' do
     require File.join(File.dirname(__FILE__), 'test', 'acceptance', 'stubba_example_test')
     require File.join(File.dirname(__FILE__), 'test', 'acceptance', 'mocha_example_test')
     iterations = 1000
-    puts "\nBenchmarking with #{iterations} iterations..."
+    puts "
+Benchmarking with #{iterations} iterations..."
     [MochaExampleTest, StubbaExampleTest].each do |test_case|
       puts "#{test_case}: #{benchmark_test_case(test_case, iterations)} seconds."
     end
