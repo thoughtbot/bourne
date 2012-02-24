@@ -131,7 +131,7 @@ module HaveReceivedTestMethods
     begin
       yield
       false
-    rescue Test::Unit::AssertionFailedError
+    rescue FailedAssertion
       true
     end
   end

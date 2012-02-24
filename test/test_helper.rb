@@ -15,3 +15,9 @@ end
 
 require 'test/unit'
 require 'mocha'
+
+if defined?(MiniTest)
+  FailedAssertion = MiniTest::Assertion
+else
+  FailedAssertion = Test::Unit::AssertionFailedError
+end

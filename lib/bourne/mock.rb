@@ -13,10 +13,11 @@ module Mocha # :nodoc:
         matching_expectation_allowing_invocation.invoke(arguments, &block)
       else
         if (matching_expectation = @expectations.match(symbol, *arguments)) || (!matching_expectation && !@everything_stubbed)
+          matching_expectation.invoke(arguments, &block) if matching_expectation
           message = UnexpectedInvocation.new(self, symbol, *arguments).to_s
-          message << Mockery.instance.mocha_inspect
+          message << @mockery.mocha_inspect
           raise ExpectationError.new(message, caller)
-        else   
+        else
           target = if self.respond_to? :mocha
             self.mocha
           else
