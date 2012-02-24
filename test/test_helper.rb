@@ -13,7 +13,5 @@ if ENV['MOCHA_OPTIONS'] == 'use_test_unit_gem'
   gem 'test-unit'
 end
 
-require 'rubygems'
 require 'test/unit'
-gem 'mocha', '0.9.12'
-
+require 'mocha'

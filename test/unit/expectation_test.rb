@@ -20,6 +20,9 @@ class ExpectationTest < Test::Unit::TestCase
     def invocation(mock, method_name, args)
       @invocations << { :mock => mock, :method_name => method_name, :args => args }
     end
+
+    def verify(assertion_counter = nil)
+    end
   end
 
   def setup

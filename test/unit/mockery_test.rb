@@ -73,6 +73,7 @@ class MockeryTest < Test::Unit::TestCase
   class FakeMethod
     def stub; end
     def unstub; end
+    def matches?(other); true; end
   end
   
   def test_should_unstub_all_methods_on_teardown

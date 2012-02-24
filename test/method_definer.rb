@@ -1,4 +1,4 @@
-require 'mocha/metaclass'
+require 'metaclass'
 
 module Mocha
   
