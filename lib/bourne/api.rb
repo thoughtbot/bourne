@@ -41,7 +41,7 @@ module Mocha # :nodoc:
         @expectations.each do |method, args, block|
           @expectation.send(method, *args, &block)
         end
-        @expectation.invocation_count = invocation_count
+        invocation_count.times { @expectation.invoke }
         @expectation.verified?
       end
 
@@ -72,7 +72,7 @@ module Mocha # :nodoc:
 
       def invocations
         Mockery.instance.invocations.select do |invocation|
-          invocation.mock.equal?(@mock)
+          invocation.mock.equal?(@mock) || invocation.mock.mocha.equal?(@mock)
         end
       end
 
