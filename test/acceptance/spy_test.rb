@@ -17,7 +17,6 @@ module SpyTestMethods
     instance.stubs(:magic)
     instance.magic
     assert_received(instance, :magic)
-    assert_received(instance, :magic)
     assert_matcher_accepts have_received(:magic), instance
   end
 
