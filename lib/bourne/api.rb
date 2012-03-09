@@ -51,7 +51,9 @@ module Mocha # :nodoc:
       end
 
       def failure_message
-        @expectation.mocha_inspect
+        message  = ""
+        message << "unstubbed, " if matching_stubs.length == 0
+        message << @expectation.mocha_inspect
       end
 
       private
@@ -69,6 +71,12 @@ module Mocha # :nodoc:
       def invocations
         Mockery.instance.invocations.select do |invocation|
           invocation.mock.equal?(@mock)
+        end
+      end
+
+      def matching_stubs
+        Mockery.instance.stubba.stubba_methods.select do |method|
+          method.mock.equal?(@mock) && method.method == @expected_method_name
         end
       end
     end
