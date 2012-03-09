@@ -78,8 +78,12 @@ module Mocha # :nodoc:
 
       def matching_stubs
         Mockery.instance.stubba.stubba_methods.select do |method|
-          method.mock.equal?(@mock) && method.method == @expected_method_name
+          matching_stub?(method)
         end
+      end
+
+      def matching_stub?(method)
+        method.mock.equal?(@mock) && method.method == @expected_method_name
       end
     end
 
