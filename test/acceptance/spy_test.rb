@@ -7,11 +7,11 @@ module SpyTestMethods
   def setup
     setup_acceptance_test
   end
-  
+
   def teardown
     teardown_acceptance_test
   end
-  
+
   def test_should_accept_wildcard_stub_call_without_arguments
     instance = new_instance
     instance.stubs(:magic)
@@ -148,10 +148,10 @@ class StubEverythingSpyTest < Test::Unit::TestCase
   def setup
     setup_acceptance_test
   end
-  
+
   def teardown
     teardown_acceptance_test
-  end  
+  end
   def test_should_match_invocations_with_no_explicit_stubbing
     instance = stub_everything
     instance.surprise!
