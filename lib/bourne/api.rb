@@ -52,7 +52,9 @@ module Mocha # :nodoc:
 
       def failure_message
         message  = ""
-        message << "unstubbed, " if matching_stubs.length == 0
+        if matching_stubs.empty?
+          message << "unstubbed, "
+        end
         message << @expectation.mocha_inspect
       end
 
