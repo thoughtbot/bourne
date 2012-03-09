@@ -95,6 +95,12 @@ module SpyTestMethods
     flunk("Expected to fail")
   end
 
+  def test_should_warn_for_unstubbed_methods_with_expectations
+    new_instance.stubs(:unknown)
+
+    assert_fails(/unstubbed, expected exactly once/) { assert_matcher_accepts have_received(:unknown), new_instance }
+  end
+
   def test_should_reject_not_enough_calls
     instance = new_instance
     instance.stubs(:magic)
