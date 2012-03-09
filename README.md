@@ -1,4 +1,4 @@
-Bourne
+Bourne [![Build Status](https://secure.travis-ci.org/thoughtbot/bourne.png)](http://travis-ci.org/thoughtbot/bourne)
 ======
 
 Bourne extends mocha to allow detailed tracking and querying of stub and mock
