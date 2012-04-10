@@ -1,14 +1,12 @@
-require File.expand_path('../../test_helper', __FILE__)
+require 'spec_helper'
 require 'mocha'
 
 class Widget
-
   def model
     'original_model'
   end
 
   class << self
-
     def find(options)
       []
     end
@@ -16,56 +14,51 @@ class Widget
     def create(attributes)
       Widget.new
     end
-
   end
-
 end
 
 module Thingy
-
   def self.wotsit
     :hoojamaflip
   end
-
 end
 
-class StubbaExampleTest < Test::Unit::TestCase
-
-  def test_should_stub_instance_method
+describe 'Stubba Example' do
+  it 'should stub instance method' do
     widget = Widget.new
     widget.expects(:model).returns('different_model')
     assert_equal 'different_model', widget.model
   end
 
-  def test_should_stub_module_method
+  it 'should stub module method' do
     should_stub_module_method
   end
 
-  def test_should_stub_module_method_again
+  it 'should stub module method again' do
     should_stub_module_method
   end
 
-  def test_should_stub_class_method
+  it 'should stub class method' do
     should_stub_class_method
   end
 
-  def test_should_stub_class_method_again
+  it 'should stub class method again' do
     should_stub_class_method
   end
 
-  def test_should_stub_instance_method_on_any_instance_of_a_class
+  it 'should stub instance method on any instance of a class' do
     should_stub_instance_method_on_any_instance_of_a_class
   end
 
-  def test_should_stub_instance_method_on_any_instance_of_a_class_again
+  it 'should stub instance method on any instance of a class again' do
     should_stub_instance_method_on_any_instance_of_a_class
   end
 
-  def test_should_stub_two_different_class_methods
+  it 'should stub two different class methods' do
     should_stub_two_different_class_methods
   end
 
-  def test_should_stub_two_different_class_methods_again
+  it 'should stub two different class methods again' do
     should_stub_two_different_class_methods
   end
 
@@ -98,5 +91,4 @@ class StubbaExampleTest < Test::Unit::TestCase
     assert_equal 'another_model', widget_1.model
     assert_equal 'another_model', widget_2.model
   end
-
 end

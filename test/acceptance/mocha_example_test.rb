@@ -1,10 +1,8 @@
-require File.expand_path('../../test_helper', __FILE__)
+require 'spec_helper'
 require 'mocha'
 
-class MochaExampleTest < Test::Unit::TestCase
-
+describe Mocha::Example do
   class Rover
-
     def initialize(left_track, right_track, steps_per_metre, steps_per_degree)
       @left_track, @right_track, @steps_per_metre, @steps_per_degree = left_track, right_track, steps_per_metre, steps_per_degree
     end
@@ -30,12 +28,14 @@ class MochaExampleTest < Test::Unit::TestCase
     end
 
     def wait
-      while (@left_track.moving? or @right_track.moving?); end
+      while (@left_track.moving? || @right_track.moving?)
+        # do nothing
+      end
     end
 
   end
 
-  def test_should_step_both_tracks_forward_ten_steps
+  it 'should step both tracks forward ten steps' do
     left_track = mock('left_track')
     right_track = mock('right_track')
     steps_per_metre = 5
@@ -50,7 +50,7 @@ class MochaExampleTest < Test::Unit::TestCase
     rover.forward(2)
   end
 
-  def test_should_step_both_tracks_backward_ten_steps
+  it 'should step both tracks backward ten steps' do
     left_track = mock('left_track')
     right_track = mock('right_track')
     steps_per_metre = 5
@@ -65,7 +65,7 @@ class MochaExampleTest < Test::Unit::TestCase
     rover.backward(2)
   end
 
-  def test_should_step_left_track_forwards_five_steps_and_right_track_backwards_five_steps
+  it 'should step left track forwards five steps and right track backwards five steps' do
     left_track = mock('left_track')
     right_track = mock('right_track')
     steps_per_degree = 5.0 / 90.0
@@ -80,7 +80,7 @@ class MochaExampleTest < Test::Unit::TestCase
     rover.right(90)
   end
 
-  def test_should_step_left_track_backwards_five_steps_and_right_track_forwards_five_steps
+  it 'should step left track backwards five steps and right track forwards five steps' do
     left_track = mock('left_track')
     right_track = mock('right_track')
     steps_per_degree = 5.0 / 90.0
@@ -94,5 +94,4 @@ class MochaExampleTest < Test::Unit::TestCase
 
     rover.left(90)
   end
-
 end

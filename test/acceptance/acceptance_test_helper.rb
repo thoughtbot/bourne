@@ -1,11 +1,9 @@
-require File.expand_path('../../test_helper', __FILE__)
+require 'spec_helper'
 require 'test_runner'
 require 'mocha/configuration'
 
 module AcceptanceTest
-
   class FakeLogger
-
     attr_reader :warnings
 
     def initialize
@@ -15,7 +13,6 @@ module AcceptanceTest
     def warn(message)
       @warnings << message
     end
-
   end
 
   attr_reader :logger
@@ -34,5 +31,4 @@ module AcceptanceTest
     Mocha::Configuration.reset_configuration
     Mocha::Mockery.instance.logger = @original_logger
   end
-
 end

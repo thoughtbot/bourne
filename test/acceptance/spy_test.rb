@@ -1,18 +1,19 @@
-require File.join(File.dirname(__FILE__), "acceptance_test_helper")
+require 'spec_helper'
 require 'bourne'
 require 'matcher_helpers'
 
-module SpyTestMethods
-
-  def setup
+shared_context_for "Spy Test" do
+  before do
     setup_acceptance_test
   end
 
-  def teardown
+  after do
     teardown_acceptance_test
   end
+end
 
-  def test_should_accept_wildcard_stub_call_without_arguments
+shared_examples_for "Spy Test" do
+  it 'should accept wildcard stub call without arguments' do
     instance = new_instance
     instance.stubs(:magic)
     instance.magic
@@ -20,7 +21,7 @@ module SpyTestMethods
     assert_matcher_accepts have_received(:magic), instance
   end
 
-  def test_should_accept_wildcard_stub_call_with_arguments
+  it 'should accept wildcard stub call with arguments' do
     instance = new_instance
     instance.stubs(:magic)
     instance.magic(:argument)
@@ -28,14 +29,14 @@ module SpyTestMethods
     assert_matcher_accepts have_received(:magic), instance
   end
 
-  def test_should_not_accept_wildcard_stub_without_call
+  it 'should not accept wildcard stub without call' do
     instance = new_instance
     instance.stubs(:magic)
     assert_fails { assert_received(instance, :magic) }
     assert_fails { assert_matcher_accepts have_received(:magic), instance }
   end
 
-  def test_should_not_accept_call_without_arguments
+  it 'should not accept call without arguments' do
     instance = new_instance
     instance.stubs(:magic)
     instance.magic
@@ -43,7 +44,7 @@ module SpyTestMethods
     assert_fails { assert_matcher_accepts have_received(:magic).with(1), instance }
   end
 
-  def test_should_not_accept_call_with_different_arguments
+  it 'should not accept call with different arguments' do
     instance = new_instance
     instance.stubs(:magic)
     instance.magic(2)
@@ -51,7 +52,7 @@ module SpyTestMethods
     assert_fails { assert_matcher_accepts have_received(:magic).with(1), instance }
   end
 
-  def test_should_accept_call_with_correct_arguments
+  it 'should accept call with correct arguments' do
     instance = new_instance
     instance.stubs(:magic)
     instance.magic(1)
@@ -59,7 +60,7 @@ module SpyTestMethods
     assert_matcher_accepts have_received(:magic).with(1), instance
   end
 
-  def test_should_accept_call_with_wildcard_arguments
+  it 'should_accept_call_with_wildcard_arguments' do
     instance = new_instance
     instance.stubs(:magic)
     instance.magic('hello')
@@ -67,7 +68,7 @@ module SpyTestMethods
     assert_matcher_accepts have_received(:magic).with(is_a(String)), instance
   end
 
-  def test_should_reject_call_on_different_mock
+  it 'should reject call on different mock' do
     instance = new_instance
     other    = new_instance
     instance.stubs(:magic)
@@ -77,7 +78,7 @@ module SpyTestMethods
     assert_fails { assert_matcher_accepts have_received(:magic).with(is_a(String)), instance }
   end
 
-  def test_should_accept_correct_number_of_calls
+  it 'should accept correct number of calls' do
     instance = new_instance
     instance.stubs(:magic)
     2.times { instance.magic }
@@ -85,7 +86,7 @@ module SpyTestMethods
     assert_matcher_accepts have_received(:magic).twice, instance
   end
 
-  def test_should_not_allow_should_not
+  it 'should not allow should not' do
     begin
       have_received(:magic).does_not_match?(new_instance)
     rescue Mocha::API::InvalidHaveReceived => exception
@@ -95,13 +96,13 @@ module SpyTestMethods
     flunk("Expected to fail")
   end
 
-  def test_should_warn_for_unstubbed_methods_with_expectations
+  it 'should warn for unstubbed methods with expectations' do
     new_instance.stubs(:unknown)
 
     assert_fails(/unstubbed, expected exactly once/) { assert_matcher_accepts have_received(:unknown), new_instance }
   end
 
-  def test_should_reject_not_enough_calls
+  it 'should reject not enough calls' do
     instance = new_instance
     instance.stubs(:magic)
     instance.magic
@@ -110,7 +111,7 @@ module SpyTestMethods
     assert_fails(message) { assert_matcher_accepts have_received(:magic).twice, instance }
   end
 
-  def test_should_reject_too_many_calls
+  it 'should reject too many calls' do
     instance = new_instance
     instance.stubs(:magic)
     2.times { instance.magic }
@@ -128,12 +129,12 @@ module SpyTestMethods
     end
     flunk("Expected to fail")
   end
-
 end
 
 class PartialSpyTest < Test::Unit::TestCase
   include AcceptanceTest
-  include SpyTestMethods
+  include_context "Spy Test"
+  it_behaves_like "Spy Test"
 
   def new_instance
     Object.new
@@ -142,23 +143,26 @@ end
 
 class PureSpyTest < Test::Unit::TestCase
   include AcceptanceTest
-  include SpyTestMethods
+  include_context "Spy Test"
+  it_behaves_like "Spy Test"
 
   def new_instance
     stub
   end
 end
 
-class StubEverythingSpyTest < Test::Unit::TestCase
+describe 'stub_everything spy' do
   include AcceptanceTest
-  def setup
+
+  before do
     setup_acceptance_test
   end
 
-  def teardown
+  after do
     teardown_acceptance_test
   end
-  def test_should_match_invocations_with_no_explicit_stubbing
+
+  it 'should match invocations with no explicit stubbing' do
     instance = stub_everything
     instance.surprise!
     assert_received(instance, :surprise!)

@@ -5,7 +5,6 @@ require 'bourne/mockery'
 require 'mocha/object'
 
 class AssertReceivedTest < Test::Unit::TestCase
-
   include Mocha
   include TestRunner
   include Mocha::API
