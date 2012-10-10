@@ -1,10 +1,13 @@
 require 'mocha/mock'
 require 'bourne/expectation'
+require 'mocha/expectation_error_factory'
 
 module Mocha # :nodoc:
   # Overwrites #method_missing on Mocha::Mock
-  # - pass arguments to invoke to create Invocation
-  # - keep lower else branch
+  # - pass arguments to .invoke() calls to create Invocation
+  # - keep lowest else branch (bourne code)
+  # - update from https://github.com/freerange/mocha/blob/master/lib/mocha/mock.rb#L195
+  # - update test/unit/mock_test.rb
   class Mock # :nodoc:
     def method_missing(symbol, *arguments, &block)
       if @responder and not @responder.respond_to?(symbol)
@@ -17,7 +20,7 @@ module Mocha # :nodoc:
           matching_expectation.invoke(arguments, &block) if matching_expectation
           message = UnexpectedInvocation.new(self, symbol, *arguments).to_s
           message << @mockery.mocha_inspect
-          raise ExpectationError.new(message, caller)
+          raise ExpectationErrorFactory.build(message, caller)
         else
           target = if self.respond_to? :mocha
             self.mocha
