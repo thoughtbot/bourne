@@ -2,7 +2,9 @@ require File.join(File.dirname(__FILE__), "..", "test_helper")
 require 'test_runner'
 require 'bourne/api'
 require 'bourne/mockery'
-require 'mocha/object'
+require 'mocha/object_methods'
+require 'mocha/module_methods'
+require 'mocha/class_methods'
 
 class AssertReceivedTest < Test::Unit::TestCase
 
