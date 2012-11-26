@@ -14,7 +14,7 @@ if ENV['MOCHA_OPTIONS'] == 'use_test_unit_gem'
 end
 
 require 'test/unit'
-require 'mocha'
+require 'mocha/setup'
 
 if defined?(MiniTest)
   FailedAssertion = MiniTest::Assertion

@@ -2,7 +2,7 @@ require File.join(File.dirname(__FILE__), "..", "test_helper")
 require 'test_runner'
 require 'bourne/api'
 require 'bourne/mockery'
-require 'mocha/object'
+require 'mocha/api'
 require 'matcher_helpers'
 
 module HaveReceivedTestMethods

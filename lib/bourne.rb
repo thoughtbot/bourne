@@ -1,2 +1,2 @@
-require 'mocha'
+require 'mocha/api'
 require 'bourne/api'
