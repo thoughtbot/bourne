@@ -1,3 +1,6 @@
+1.2.1 (2012-11-26)
+* Compatible with Mocha 0.12.7
+
 1.1.2 (2012-03-23)
 * Mention when a method is unstubbed
 * Compatible with Mocha 0.10.5
