@@ -13,18 +13,18 @@ class MockTest < Test::Unit::TestCase
   include Mocha
 
   def test_should_set_single_expectation
-    mock = build_mock
-    mock.expects(:method1).returns(1)
-    assert_nothing_raised(ExpectationError) do
-      assert_equal 1, mock.method1
-    end
+   mock = build_mock
+   mock.expects(:method1).returns(1)
+   assert_nothing_raised(ExpectationError) do
+     assert_equal 1, mock.method1
+   end
   end
 
   def test_should_build_and_store_expectations
-    mock = build_mock
-    expectation = mock.expects(:method1)
-    assert_not_nil expectation
-    assert_equal [expectation], mock.__expectations__.to_a
+   mock = build_mock
+   expectation = mock.expects(:method1)
+   assert_not_nil expectation
+   assert_equal [expectation], mock.__expectations__.to_a
   end
 
   def test_should_not_stub_everything_by_default
@@ -216,6 +216,12 @@ class MockTest < Test::Unit::TestCase
     mock = build_mock
     mock.expects(:method1)
     assert_equal true, mock.respond_to?(:method1)
+  end
+
+  def test_should_respond_to_expected_method_as_string
+    mock = build_mock
+    mock.expects(:method1)
+    assert_equal true, mock.respond_to?('method1')
   end
 
   def test_should_not_respond_to_unexpected_method
