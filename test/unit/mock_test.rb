@@ -314,6 +314,32 @@ class MockTest < Test::Unit::TestCase
     assert_match(/unexpected invocation/, e.message)
   end
 
+  class FakeExpectation
+    attr_reader :args
+
+    def invoke(args)
+      @args = args
+    end
+
+    def match?(*args)
+      true
+    end
+
+    def invocations_allowed?
+      true
+    end
+  end
+
+  def test_should_record_invocations
+    method = :a_method
+    args   = [1, 2]
+    mock = Mock.new(method)
+    expectation = FakeExpectation.new
+    mock.__expectations__.add expectation
+    mock.send(method, *args)
+    assert_equal args, expectation.args
+  end
+
   private
 
   def build_mock
