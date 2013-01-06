@@ -73,4 +73,4 @@ The names and logos for thoughtbot are trademarks of thoughtbot, inc.
 License
 -------
 
-Bourne is Copyright © 2010-2011 Joe Ferris and thoughtbot. It is free software, and may be redistributed under the terms specified in the LICENSE file.
+Bourne is Copyright © 2010-2013 Joe Ferris and thoughtbot. It is free software, and may be redistributed under the terms specified in the LICENSE file.
