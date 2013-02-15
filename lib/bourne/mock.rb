@@ -6,7 +6,7 @@ module Mocha # :nodoc:
   # Overwrites #method_missing on Mocha::Mock
   # - pass arguments to .invoke() calls to create Invocation
   # - keep lowest else branch (bourne code)
-  # - update from https://github.com/freerange/mocha/blob/master/lib/mocha/mock.rb#L195
+  # - update from https://github.com/freerange/mocha/blob/master/lib/mocha/mock.rb#L227
   # - update test/unit/mock_test.rb
   class Mock # :nodoc:
     def method_missing(symbol, *arguments, &block)
