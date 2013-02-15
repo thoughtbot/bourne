@@ -4,7 +4,7 @@
 # - keep: FakeExpectation test
 require File.expand_path('../../test_helper', __FILE__)
 require 'bourne/mock'
-require 'mocha/expectation_error'
+require 'mocha/expectation_error_factory'
 require 'set'
 require 'simple_counter'
 
@@ -13,18 +13,18 @@ class MockTest < Test::Unit::TestCase
   include Mocha
 
   def test_should_set_single_expectation
-    mock = build_mock
-    mock.expects(:method1).returns(1)
-    assert_nothing_raised(ExpectationErrorFactory.exception_class) do
-      assert_equal 1, mock.method1
-    end
+   mock = build_mock
+   mock.expects(:method1).returns(1)
+   assert_nothing_raised(ExpectationErrorFactory.exception_class) do
+     assert_equal 1, mock.method1
+   end
   end
 
   def test_should_build_and_store_expectations
-    mock = build_mock
-    expectation = mock.expects(:method1)
-    assert_not_nil expectation
-    assert_equal [expectation], mock.__expectations__.to_a
+   mock = build_mock
+   expectation = mock.expects(:method1)
+   assert_not_nil expectation
+   assert_equal [expectation], mock.__expectations__.to_a
   end
 
   def test_should_not_stub_everything_by_default
@@ -247,9 +247,32 @@ class MockTest < Test::Unit::TestCase
     assert_equal false, mock.respond_to?(:invoked_method)
   end
 
-  def test_should_return_itself_to_allow_method_chaining
+  def test_should_respond_to_methods_which_the_responder_instance_does_responds_to
+    klass = Class.new do
+      define_method(:respond_to?) { |symbol| true }
+    end
+    mock = build_mock
+    mock.responds_like_instance_of(klass)
+    assert_equal true, mock.respond_to?(:invoked_method)
+  end
+
+  def test_should_not_respond_to_methods_which_the_responder_instance_does_not_responds_to
+    klass = Class.new do
+      define_method(:respond_to?) { |symbol| false }
+    end
+    mock = build_mock
+    mock.responds_like_instance_of(klass)
+    assert_equal false, mock.respond_to?(:invoked_method)
+  end
+
+  def test_respond_like_should_return_itself_to_allow_method_chaining
     mock = build_mock
     assert_same mock.responds_like(Object.new), mock
+  end
+
+  def test_respond_like_instance_of_should_return_itself_to_allow_method_chaining
+    mock = build_mock
+    assert_same mock.responds_like_instance_of(Object), mock
   end
 
   def test_should_not_raise_no_method_error_if_mock_is_not_restricted_to_respond_like_a_responder
@@ -296,7 +319,7 @@ class MockTest < Test::Unit::TestCase
 
   def test_should_handle_respond_to_with_private_methods_param_without_error
     mock = build_mock
-    assert_nothing_raised{ mock.respond_to?(:object_id, false) }
+    assert_nothing_raised { mock.respond_to?(:object_id, false) }
   end
 
   def test_should_respond_to_any_method_if_stubbing_everything
