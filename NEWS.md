@@ -1,3 +1,6 @@
+1.3.2 (2013-02-15)
+* Compatible with Mocha 0.13.2
+
 1.3.0 (2012-11-30)
 * Compatible with Mocha 0.13.0
 
