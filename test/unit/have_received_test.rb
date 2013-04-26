@@ -48,6 +48,18 @@ module HaveReceivedTestMethods
     end
   end
 
+  def test_passes_if_invocation_exists_with_arguments_specified_in_block
+    method = :a_method
+    mock   = new_mock('a mock')
+    Mockery.instance.invocation(mock, method, ['hello'])
+    assert_passes do
+      matcher = have_received(method).with do |*args|
+        args == ['hello']
+      end
+      assert_matcher_accepts matcher, mock
+    end
+  end
+
   def test_passes_if_invocation_exists_with_exact_arguments
     method = :a_method
     mock   = new_mock('a mock')
@@ -190,3 +202,4 @@ class PureHaveReceivedTest < Test::Unit::TestCase
   end
 
 end
+
