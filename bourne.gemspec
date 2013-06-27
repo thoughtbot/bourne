@@ -20,7 +20,8 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_dependency('mocha', '~> 0.13.2') # follow instructions in mock.rb to update
+  # Follow instructions in test/unit/mock_test.rb to update.
+  s.add_dependency('mocha', '~> 0.13.2')
 
   s.add_development_dependency('rake')
 end
