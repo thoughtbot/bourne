@@ -1,9 +1,10 @@
 # to update:
 # - copy new code from https://raw.github.com/freerange/mocha/master/test/unit/mock_test.rb
-# - keep: require 'bourne/mock'
+# - keep: require 'bourne/mockery'
 # - keep: FakeExpectation test
 require File.expand_path('../../test_helper', __FILE__)
-require 'bourne/mock'
+require 'bourne/mockery'
+require 'mocha/mock'
 require 'mocha/expectation_error_factory'
 require 'set'
 require 'simple_counter'

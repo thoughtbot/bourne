@@ -1,4 +1,4 @@
-require File.expand_path('../../test_helper', __FILE__)
+require_relative '../test_helper'
 require 'bourne/mockery'
 require 'mocha/state_machine'
 require 'bourne/invocation'
