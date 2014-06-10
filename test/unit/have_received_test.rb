@@ -131,14 +131,14 @@ module HaveReceivedTestMethods
     begin
       yield
       false
-    rescue FailedAssertion
+    rescue Minitest::Assertion
       true
     end
   end
 
 end
 
-class PartialHaveReceivedTest < Test::Unit::TestCase
+class PartialHaveReceivedTest < Minitest::Test
 
   include TestRunner
   include Mocha::API
@@ -165,7 +165,7 @@ class PartialHaveReceivedTest < Test::Unit::TestCase
 end
 
 
-class PureHaveReceivedTest < Test::Unit::TestCase
+class PureHaveReceivedTest < Minitest::Test
 
   include TestRunner
   include Mocha::API

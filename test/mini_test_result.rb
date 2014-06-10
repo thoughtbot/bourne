@@ -1,8 +1,7 @@
 require 'stringio'
-require 'test/unit/testcase'
-require 'minitest/unit'
+require 'minitest'
 
-class MiniTestResult
+class MinitestResult
 
   FAILURE_PATTERN = %r{(Failure)\:\n([^\(]+)\(([^\)]+)\) \[([^\]]+)\]\:\n(.*)\n}m
   ERROR_PATTERN   = %r{(Error)\:\n([^\(]+)\(([^\)]+)\)\:\n(.+?)\n}m
@@ -62,11 +61,11 @@ class MiniTestResult
   end
 
   def failures
-    @runner.report.map { |puked| MiniTestResult.parse_failure(puked) }.compact
+    @runner.report.map { |puked| MinitestResult.parse_failure(puked) }.compact
   end
 
   def errors
-    @runner.report.map { |puked| MiniTestResult.parse_error(puked) }.compact
+    @runner.report.map { |puked| MinitestResult.parse_error(puked) }.compact
   end
 
   def failure_messages

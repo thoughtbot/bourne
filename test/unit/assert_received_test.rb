@@ -4,7 +4,7 @@ require 'bourne/api'
 require 'bourne/mockery'
 require 'mocha/api'
 
-class AssertReceivedTest < Test::Unit::TestCase
+class AssertReceivedTest < Minitest::Test
 
   include Mocha
   include TestRunner
@@ -137,7 +137,7 @@ class AssertReceivedTest < Test::Unit::TestCase
     begin
       yield
       false
-    rescue FailedAssertion
+    rescue Minitest::Assertion
       true
     end
   end
