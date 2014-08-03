@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   # Follow instructions in test/unit/mock_test.rb to update.
-  s.add_dependency('mocha', '>= 0.13.2', '< 0.15')
+  s.add_dependency('mocha', '~> 1.1')
 
   s.add_development_dependency('rake')
 end
