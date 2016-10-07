@@ -1,3 +1,10 @@
+Deprecated
+==========
+
+Given the [introduction](https://github.com/rspec/rspec-mocks/pull/241) of
+[test spies in rspec-mocks](https://github.com/rspec/rspec-mocks#test-spies),
+Bourne is unnecessary in new versions of RSpec (> 2.14).
+
 Bourne [![Build Status](https://secure.travis-ci.org/thoughtbot/bourne.png?branch=master)](http://travis-ci.org/thoughtbot/bourne)
 ======
 
