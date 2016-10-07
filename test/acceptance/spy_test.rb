@@ -122,7 +122,7 @@ module SpyTestMethods
   def assert_fails(message=/not yet invoked/)
     begin
       yield
-    rescue FailedAssertion => exception
+    rescue Minitest::Assertion => exception
       assert_match message, exception.message, "Test failed, but with the wrong message"
       return
     end
@@ -131,7 +131,7 @@ module SpyTestMethods
 
 end
 
-class PartialSpyTest < Test::Unit::TestCase
+class PartialSpyTest < Minitest::Test
   include AcceptanceTest
   include SpyTestMethods
 
@@ -140,7 +140,7 @@ class PartialSpyTest < Test::Unit::TestCase
   end
 end
 
-class PureSpyTest < Test::Unit::TestCase
+class PureSpyTest < Minitest::Test
   include AcceptanceTest
   include SpyTestMethods
 
@@ -149,7 +149,7 @@ class PureSpyTest < Test::Unit::TestCase
   end
 end
 
-class StubEverythingSpyTest < Test::Unit::TestCase
+class StubEverythingSpyTest < Minitest::Test
   include AcceptanceTest
   def setup
     setup_acceptance_test

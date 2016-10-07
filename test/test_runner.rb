@@ -1,39 +1,18 @@
-require 'test/unit/testcase'
+require 'minitest'
 
-if defined?(MiniTest)
-  require 'mocha/integration/mini_test'
-  require File.expand_path('../mini_test_result', __FILE__)
-else
-  require 'test/unit/testresult'
-end
+require 'mocha/integration/mini_test'
+require File.expand_path('../mini_test_result', __FILE__)
 
 module TestRunner
   def run_as_test(test_result = nil, &block)
-    test_class = Class.new(Test::Unit::TestCase) do
+    test_class = Class.new(Minitest::Test) do
       define_method(:test_me, &block)
     end
     test = test_class.new(:test_me)
 
-    if defined?(Test::Unit::TestResult)
-      test_result ||= Test::Unit::TestResult.new
-      test.run(test_result) {}
-      class << test_result
-        attr_reader :failures, :errors
-        def failure_messages
-          failures.map { |failure| failure.message }
-        end
-        def failure_message_lines
-          failure_messages.map { |message| message.split("\n") }.flatten
-        end
-        def error_messages
-          errors.map { |error| error.message }
-        end
-      end
-    else
-      runner = MiniTest::Unit.new
-      test.run(runner)
-      test_result = MiniTestResult.new(runner, test)
-    end
+    runner = Minitest::Test.new
+    test.run(runner)
+    test_result = MinitestResult.new(runner, test)
 
     test_result
   end

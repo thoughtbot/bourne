@@ -24,4 +24,5 @@ Gem::Specification.new do |s|
   s.add_dependency('mocha', '~> 1.1')
 
   s.add_development_dependency('rake')
+  s.add_development_dependency('minitest')
 end

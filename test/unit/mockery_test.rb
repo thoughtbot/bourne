@@ -3,13 +3,13 @@ require 'bourne/mockery'
 require 'mocha/state_machine'
 require 'bourne/invocation'
 
-class MockeryTest < Test::Unit::TestCase
+class MockeryTest < Minitest::Test
 
   include Mocha
 
   def test_should_build_instance_of_mockery
     mockery = Mockery.instance
-    assert_not_nil mockery
+    refute_nil mockery
     assert_kind_of Mockery, mockery
   end
 
@@ -23,7 +23,7 @@ class MockeryTest < Test::Unit::TestCase
     mockery_1 = Mockery.instance
     Mockery.reset_instance
     mockery_2 = Mockery.instance
-    assert_not_same mockery_1, mockery_2
+    refute_same mockery_1, mockery_2
   end
 
   def test_should_raise_expectation_error_because_not_all_expectations_are_satisfied
@@ -39,12 +39,12 @@ class MockeryTest < Test::Unit::TestCase
     mockery = Mockery.new
     mock = mockery.unnamed_mock { expects(:my_method) }
     mockery.teardown
-    assert_nothing_raised(ExpectationErrorFactory.exception_class) { mockery.verify }
+    mockery.verify
   end
 
   def test_should_build_instance_of_stubba_on_instantiation
     mockery = Mockery.new
-    assert_not_nil mockery.stubba
+    refute_nil mockery.stubba
     assert_kind_of Central, mockery.stubba
   end
 
@@ -53,7 +53,7 @@ class MockeryTest < Test::Unit::TestCase
     stubba_1 = mockery.stubba
     mockery.teardown
     stubba_2 = mockery.stubba
-    assert_not_same stubba_1, stubba_2
+    refute_same stubba_1, stubba_2
   end
 
   def test_should_build_and_store_new_state_machine

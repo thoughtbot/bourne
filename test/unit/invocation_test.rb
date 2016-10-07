@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), "..", "test_helper")
 require 'bourne/invocation'
 
-class InvocationTest < Test::Unit::TestCase
+class InvocationTest < Minitest::Test
 
   include Mocha
 

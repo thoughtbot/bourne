@@ -13,11 +13,5 @@ if ENV['MOCHA_OPTIONS'] == 'use_test_unit_gem'
   gem 'test-unit'
 end
 
-require 'test/unit'
+require 'minitest/autorun'
 require 'mocha/setup'
-
-if defined?(MiniTest)
-  FailedAssertion = MiniTest::Assertion
-else
-  FailedAssertion = Test::Unit::AssertionFailedError
-end
